@@ -1,0 +1,13 @@
+# Ignore everything by default
+*
+
+# But allow directories to be traversed so .tex/.pdf files
+# inside subfolders aren't skipped
+!*/
+
+# Un-ignore .tex and .pdf files, at any depth
+!*.tex
+!main.pdf
+
+# Un-ignore this file itself so it stays tracked
+!.gitignore
