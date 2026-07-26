@@ -1,0 +1,119 @@
+% ============================================================
+% git-init-existing-folder.tex — A SUBDOCUMENT
+% Compiles standalone ("pdflatex git-init-existing-folder.tex")
+% using main.tex's preamble, OR gets inserted into main.tex via
+% \subfile{git-init-existing-folder}.
+% ============================================================
+
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\section{Creating a New GitHub Repository from an Existing Folder}
+
+\subsection{Overview}
+This guide covers turning a folder you already have on your
+computer (with existing files) into a Git repository, then
+pushing it to a brand-new repository on GitHub.
+
+\subsection{Step 1: Open Git Bash in the Folder}
+\begin{enumerate}[leftmargin=*]
+    \item Navigate to the folder in Windows File Explorer.
+    \item Right-click inside the folder and select
+    \textbf{Git Bash Here}.
+\end{enumerate}
+
+Alternatively, open Git Bash and use \texttt{cd} to navigate there:
+
+\begin{lstlisting}
+cd /c/Users/yourname/Documents/your-project
+\end{lstlisting}
+
+\subsection{Step 2: Initialize the Folder as a Git Repository}
+\begin{lstlisting}
+git init
+\end{lstlisting}
+
+This creates a hidden \texttt{.git} folder inside your project,
+which is what turns an ordinary folder into a Git repository.
+
+\subsection{Step 3: Check the Status}
+\begin{lstlisting}
+git status
+\end{lstlisting}
+
+This lists all the files in the folder as ``untracked'' — Git
+sees them but isn't tracking changes to them yet.
+
+\subsection{Step 4: Stage and Commit Your Files}
+\begin{lstlisting}
+git add .
+\end{lstlisting}
+
+The \texttt{.} stages every file in the folder (and subfolders)
+for the next commit.
+
+\begin{lstlisting}
+git commit -m "Initial commit"
+\end{lstlisting}
+
+The \texttt{-m} flag lets you attach a short message describing
+the commit, in quotes.
+
+\subsection{Step 5: Set Your Default Branch Name (Optional)}
+Modern GitHub repositories default to a branch named
+\texttt{main}. If your local repo defaulted to \texttt{master}
+instead, rename it:
+
+\begin{lstlisting}
+git branch -M main
+\end{lstlisting}
+
+\subsection{Step 6: Create a New, Empty Repository on GitHub}
+\begin{enumerate}[leftmargin=*]
+    \item Log in to GitHub and click the \textbf{+} icon in the
+    top-right corner, then select \textbf{New repository}.
+    \item Enter a \textbf{Repository name}.
+    \item Choose \textbf{Public} or \textbf{Private}.
+    \item \textbf{Important:} Do \emph{not} check any of the boxes
+    to add a README, \texttt{.gitignore}, or license. Since you
+    already have files locally, starting the GitHub repo empty
+    avoids merge conflicts.
+    \item Click \textbf{Create repository}.
+\end{enumerate}
+
+\subsection{Step 7: Link Your Local Folder to the GitHub Repository}
+After creating the repository, GitHub displays a remote URL.
+Copy the \textbf{SSH} URL (it should look like
+\texttt{git@github.com:username/repository.git}) and run:
+
+\begin{lstlisting}
+git remote add origin git@github.com:username/repository.git
+\end{lstlisting}
+
+Replace \texttt{username/repository} with your actual GitHub
+username and repository name.
+
+\subsection{Step 8: Push Your Files to GitHub}
+\begin{lstlisting}
+git push -u origin main
+\end{lstlisting}
+
+The \texttt{-u} flag sets \texttt{origin main} as the default
+remote and branch, so future pushes only require:
+
+\begin{lstlisting}
+git push
+\end{lstlisting}
+
+\subsection{Step 9: Verify}
+Refresh the repository page on GitHub. Your files should now
+appear there, matching what's in your local folder.
+
+\subsection{Note on SSH}
+This guide assumes SSH is already set up between your computer
+and GitHub. If \texttt{git push} asks for a username and password
+instead of working automatically, you'll need to add an SSH key
+to your GitHub account first.
+
+\end{document}

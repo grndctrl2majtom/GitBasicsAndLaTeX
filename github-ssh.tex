@@ -1,0 +1,86 @@
+% ============================================================
+% github-ssh.tex — A SUBDOCUMENT
+% This file can be compiled two different ways:
+%   1. On its own: run "pdflatex github-ssh.tex" directly.
+%      It will borrow main.tex's preamble (packages/styles)
+%      and produce a small standalone PDF of just this section.
+%   2. As part of the whole guide: when main.tex runs
+%      \subfile{github-ssh}, only the content between
+%      \begin{document} and \end{document} below gets inserted
+%      into main.tex — the \documentclass line here is ignored.
+% ============================================================
+
+\documentclass[main.tex]{subfiles}
+% This is NOT a normal \documentclass line. The [main.tex] part
+% tells the "subfiles" package: "borrow your preamble settings
+% from main.tex." Both files must be in the same folder for
+% this to work (or adjust the path, e.g. [../main.tex]).
+
+\begin{document}
+
+\section{Adding an SSH Key to GitHub and Cloning a Repository}
+% Top-level heading for this content. If this file is inserted
+% into main.tex, this becomes a numbered section there too.
+
+\subsection{Check for Existing SSH Keys}
+Open a git bash terminal and check whether you already have an SSH key pair.
+
+\begin{lstlisting}
+ls -al ~/.ssh
+\end{lstlisting}
+% \begin{lstlisting} ... \end{lstlisting} displays text exactly
+% as typed, in a monospaced font — perfect for terminal commands.
+% It uses the "terminal" style we defined in main.tex's preamble.
+
+Look for files named \texttt{id\_ed25519} / \texttt{id\_ed25519.pub}
+or \texttt{id\_rsa} / \texttt{id\_rsa.pub}. If these exist, skip to
+the ``Add the Key to GitHub'' step.
+% \texttt{...} renders text in a monospace/typewriter font,
+% useful for filenames within a normal sentence.
+% Note: underscores must be escaped as \_ in LaTeX, since a bare
+% underscore normally means "subscript."
+
+\subsection{Generate a New SSH Key}
+\begin{lstlisting}
+ssh-keygen -t ed25519 -C "your_email@example.com"
+\end{lstlisting}
+
+\subsection{Start the SSH Agent and Add Your Key}
+\begin{lstlisting}
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+\end{lstlisting}
+
+\subsection{Copy the Public Key}
+\begin{lstlisting}
+cat ~/.ssh/id_ed25519.pub
+\end{lstlisting}
+
+\subsection{Add the Key to GitHub}
+\begin{enumerate}[leftmargin=*]
+% enumerate = numbered list. [leftmargin=*] (from the enumitem
+% package) removes extra indentation so it aligns neatly.
+    \item Log in to GitHub and go to \textbf{Settings}.
+    \item Click \textbf{SSH and GPG keys} in the sidebar.
+    \item Click \textbf{New SSH key}, give it a title, and paste the key.
+    \item Click \textbf{Add SSH key}.
+\end{enumerate}
+% \textbf{...} makes text bold.
+
+\subsection{Test the Connection}
+\begin{lstlisting}
+ssh -T git@github.com
+\end{lstlisting}
+
+\subsection{Clone a Repository Using SSH}
+\begin{lstlisting}
+git clone git@github.com:username/repository.git
+\end{lstlisting}
+
+\end{document}
+% This \end{document} closes the subfile's own document body.
+% When compiled standalone, this marks the end of the PDF.
+% When pulled in via \subfile{github-ssh} from main.tex, this
+% line (and \begin{document}/\documentclass above) is simply
+% skipped by the subfiles package — only the content in between
+% gets inserted.

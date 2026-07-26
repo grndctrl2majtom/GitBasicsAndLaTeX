@@ -1,0 +1,85 @@
+% ============================================================
+% main.tex — The MAIN document
+% This file defines the overall document setup (preamble) and
+% pulls in content from other files using \subfile.
+% ============================================================
+
+\documentclass[11pt]{article}
+% [11pt] sets the base font size for the whole document.
+% "article" is a document class suited to short reports/guides
+% (as opposed to "book" or "report", which are for longer works).
+
+% ---------- PACKAGES ----------
+% Packages add extra functionality. Each \usepackage line loads one.
+
+\usepackage[margin=1in]{geometry}
+% Sets all page margins to 1 inch.
+
+\usepackage{listings}
+% Lets us display code/terminal commands with the lstlisting
+% environment, instead of typing them as plain paragraph text.
+
+\usepackage{xcolor}
+% Gives us \color{...} so we can add colors (used below for the
+% code block's background and border).
+
+\usepackage{hyperref}
+% Makes table-of-contents entries, references, and URLs clickable
+% links in the final PDF.
+
+\usepackage{enumitem}
+% Lets us customize lists, e.g. \begin{enumerate}[leftmargin=*]
+% to control indentation.
+
+\usepackage{subfiles}
+% THE KEY PACKAGE FOR THIS EXAMPLE.
+% Lets a separate .tex file (like github-ssh.tex) be compiled
+% either (a) on its own, standalone, or (b) pulled into this
+% main document — using the same preamble/styling either way.
+% IMPORTANT: \usepackage{subfiles} should be the LAST package
+% loaded, after all others.
+
+% ---------- CUSTOM CODE-BLOCK STYLE ----------
+% This defines how our terminal commands will look when printed.
+\lstdefinestyle{terminal}{
+    backgroundcolor=\color{black!5}, % very light gray background
+    basicstyle=\ttfamily\small,      % monospace font, small size
+    breaklines=true,                 % wrap long lines instead of overflowing
+    frame=single,                    % draw a box around the code
+    rulecolor=\color{black!30},      % color of that box's border
+    columns=fullflexible,
+    keepspaces=true
+}
+\lstset{style=terminal}
+% Apply the "terminal" style to every \begin{lstlisting} block
+% by default, so we don't have to repeat the style name each time.
+
+% ---------- TITLE INFO ----------
+\title{Developer Setup Guide}
+\author{}
+\date{}
+% Left blank here since we don't need an author/date shown.
+
+% ============================================================
+% BODY OF THE DOCUMENT
+% Everything actually printed in the PDF goes between
+% \begin{document} and \end{document}.
+% ============================================================
+\begin{document}
+
+\maketitle
+% Prints the title block using \title, \author, \date above.
+
+\tableofcontents
+% Auto-generates a table of contents from \section, \subsection,
+% etc. commands found anywhere in the document (including inside
+% subfiles!). You may need to compile twice for this to populate
+% correctly — that's normal LaTeX behavior.
+
+% pull in subfiles
+\subfile{download-git-bash}
+\subfile{github-ssh}
+\subfile{git-init-existing-folder}
+
+
+\end{document}
