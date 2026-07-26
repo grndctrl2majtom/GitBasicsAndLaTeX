@@ -7,6 +7,7 @@
 
 # Un-ignore .tex and .pdf files, at any depth
 !*.tex
+!*.png
 !main.pdf
 
 # Un-ignore this file itself so it stays tracked

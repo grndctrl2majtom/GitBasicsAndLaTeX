@@ -1,0 +1,45 @@
+% ============================================================
+% git-instructions-main.tex — A "GROUPING" SUBDOCUMENT
+% This file doesn't contain content of its own — it just
+% bundles the individual Git-related subfiles together in
+% order, so main.tex only needs one \subfile call to pull in
+% the whole Git section.
+%
+% IMPORTANT: even though this file sits "between" main.tex and
+% the individual topic files, its \documentclass line still
+% points to main.tex — NOT to itself. Every subfile in a nested
+% chain points to the same ultimate root document.
+% ============================================================
+
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\section{Git and GitHub}
+% This is now the ONLY \section command in the whole Git
+% bundle. Everything pulled in below must use \subsection
+% (not \section) so it nests under this one TOC entry
+% instead of creating its own.
+
+\begingroup
+  % \begingroup ... \endgroup creates a "scope" — any command
+  % redefinitions inside only last until \endgroup, so this
+  % trick doesn't affect anything outside this block.
+  
+	\let\originalsubsection\subsection
+  	\let\originalsubsubsection\subsubsection
+  	% Save the REAL commands under safe temporary names first,
+  	% before we overwrite \section and \subsection below.
+  
+
+	\renewcommand{\section}[1]{\originalsubsection{#1}}
+  	\renewcommand{\subsection}[1]{\originalsubsubsection{#1}}
+  	% consistent.
+
+	\subfile{download-git-bash.tex}
+	\subfile{github-ssh.tex}
+	\subfile{git-init-existing-folder.tex}
+
+\endgroup
+
+\end{document}

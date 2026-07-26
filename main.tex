@@ -39,6 +39,9 @@
 % IMPORTANT: \usepackage{subfiles} should be the LAST package
 % loaded, after all others.
 
+\usepackage{graphicx}
+%package allows for figure generation
+
 % ---------- CUSTOM CODE-BLOCK STYLE ----------
 % This defines how our terminal commands will look when printed.
 \lstdefinestyle{terminal}{
@@ -55,7 +58,7 @@
 % by default, so we don't have to repeat the style name each time.
 
 % ---------- TITLE INFO ----------
-\title{Developer Setup Guide}
+\title{Git and LaTeX Guide}
 \author{}
 \date{}
 % Left blank here since we don't need an author/date shown.
@@ -77,9 +80,7 @@
 % correctly — that's normal LaTeX behavior.
 
 % pull in subfiles
-\subfile{download-git-bash}
-\subfile{github-ssh}
-\subfile{git-init-existing-folder}
-
+\subfile{./GitInstructions/git-instruction-main.tex}
+\subfile{./TexMaker/texmaker-install.tex}        % Section 2: Downloading and Installing Texmaker
 
 \end{document}
